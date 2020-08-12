@@ -18,8 +18,14 @@ class ManageCategoriesScreen {
     console.log("********************************************");
     console.log();
 
+
     // TODO: Print all five category names with a one-based index
     //       like in the screen mockup in the project description.
+    for (let i = 0; i < this.state.grabCategoryLength() ; i++){
+      console.log(`${i + 1}. ${this.state.grabCategory(i)}`)
+
+    }
+
 
     console.log();
     console.log("X. Go to main screen");

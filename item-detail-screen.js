@@ -12,7 +12,7 @@ class ItemDetailScreen {
     this.index = index;
   }
 
-  printNoteUi(text) {
+  printNoteUi(text, complete) {
     console.clear();
     console.log("********************************************");
     console.log("* TO-DO ITEM (NOTE)             (c) 1987   *");
@@ -36,6 +36,17 @@ class ItemDetailScreen {
   }
 
   show() {
+    const listItem = this.state.grabListsItem(this.index);
+
+      if(listItem.type === "Note") {
+        this.printNoteUi(listItem.text);
+      } else {
+        this.printTaskUi(listItem.title, listItem.text, this.state.grabCategory(listItem.categoryIndex));
+      }
+
+
+
+
     // TODO: Determine what kind of item is in the state and
     //       referenced by the value in this.index.
     // TODO: If there is not item referenced by this.index,
@@ -54,7 +65,7 @@ class ItemDetailScreen {
     console.log("hit \"Enter\" to return to the list screen.");
     this.rl.question("> ", answer => {
       if (answer === "C") {
-        // TODO: Mark the item as complete
+        listItem.complete();
         // TODO: Save the application state
 
       }
