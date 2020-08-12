@@ -61,8 +61,6 @@ class AddItemScreen {
     console.log("What is the category?");
     console.log();
 
-    // TODO: Print all five category names with a one-based index
-    //       like in the screen mockup in the project description.
     for (let i = 0; i < this.state.grabCategoryLength() ; i++){
       console.log(`${i + 1}. ${this.state.grabCategory(i)}`)
 
@@ -94,7 +92,7 @@ class AddItemScreen {
         this.printNoteUi();
         this.rl.question("> ", note => {
           this.state.addNote(note)
-          // TODO: Save the state
+          this.state.saveInfo();
 
           const screen = new ManageTasksScreen(this.rl, this.state);
           screen.show();
@@ -105,19 +103,14 @@ class AddItemScreen {
           this.printTaskUi2(title);
           this.rl.question("> ", categoryIndex => {
             categoryIndex = Number.parseInt(categoryIndex) - 1;
-            // TODO: Use the value categoryIndex to get the
-            //       name of the category and set the following
-            //       value to the category name
+
             const categoryName = this.state.grabCategory(categoryIndex);
 
             this.printTaskUi3(title, categoryName);
             this.rl.question("> ", description => {
-              // TODO: Add a task to-do item to your state
-              //       using the variables title, categoryIndex,
-              //       and description
 
               this.state.addTask(title, description, categoryIndex);
-              // TODO: Save the state
+              this.state.saveInfo();
 
               const screen = new ManageTasksScreen(this.rl, this.state);
               screen.show();

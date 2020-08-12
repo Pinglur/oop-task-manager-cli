@@ -1,1 +1,1 @@
-{"categories":["asdad","Category 2","Category 3","Category 4","Category 5"]}
+{"lists":[{"type":"Note","text":"this is a note","completed":false},{"type":"Task","title":"idk","text":"i need to do something","categoryIndex":0,"completed":false}],"categories":["groceries","Category 2","Category 3","Category 4","Category 5"]}

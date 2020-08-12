@@ -30,9 +30,7 @@ class EditCategoryScreen {
     this.printUi(categoryName);
     this.rl.question("> ", newCategoryName => {
       this.state.setCategory(this.categoryIndex, newCategoryName);
-
-      // TODO: Save the state
-      // this.state.saveInfo();
+      this.state.saveInfo();
 
       new ManageCategoriesScreen(this.rl, this.state).show();
     });

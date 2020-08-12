@@ -37,28 +37,12 @@ class ItemDetailScreen {
 
   show() {
     const listItem = this.state.grabListsItem(this.index);
-
+    if (listItem !== undefined){
       if(listItem.type === "Note") {
         this.printNoteUi(listItem.text);
       } else {
         this.printTaskUi(listItem.title, listItem.text, this.state.grabCategory(listItem.categoryIndex));
       }
-
-
-
-
-    // TODO: Determine what kind of item is in the state and
-    //       referenced by the value in this.index.
-    // TODO: If there is not item referenced by this.index,
-    //       then do whatever kind of error handling you'd
-    //       like, just don't let the program crash.
-    // TODO: If it is a Note, then get the text from the note
-    //       and call the this.printNoteUi(text) method.
-    // TODO: If it is a Task, then get the title, description,
-    //       and category index, translate the category index
-    //       into a category name from the note and call the
-    //       this.printTaskUi(title, description, categoryName)
-    //       method.
 
     console.log("Type \"C\" and hit \"Enter\" to complete this");
     console.log("task and return to the list screen. Just");
@@ -66,12 +50,18 @@ class ItemDetailScreen {
     this.rl.question("> ", answer => {
       if (answer === "C") {
         listItem.complete();
+        this.state.saveInfo();
         // TODO: Save the application state
 
       }
       const screen = new ManageTasksScreen(this.rl, this.state);
       screen.show();
     });
+  } else {
+      const screen = new ManageTasksScreen(this.rl, this.state);
+      screen.show();
+      console.log('hey thats not valid! \n')
+  }
   }
 }
 

@@ -38,19 +38,32 @@ class State {
     return this.lists[index];
   }
 
+  grabListsHeader(index){
+    return this.lists[index].returnString();
+  }
+
   grabListsType(index) {
     return this.lists[index].type;
+  }
+
+  searchText(index, term){
+    return this.lists[index].searchItem(term);
   }
   // Called from program.js if there is JSON saved
   // in the file pointed to by the value in
   // this.filePath.
   loadFromJson(data) {
-    // TODO: Load this object from the data
+    const {
+     this.categories = categories,
+      this.
+    }
+    JSON.parse(data)
+    }
   }
 
   saveInfo() {
     const  info = {
-      tasks: this.tasks,
+      lists: this.lists,
       categories: this.categories,
     }
     fs.writeFile(this.filePath, JSON.stringify(info), err => {
@@ -72,6 +85,14 @@ class Note{
   complete(){
     this.completed = true;
   }
+
+  returnString(){
+    return this.text;
+  }
+
+  searchItem(term){
+    return this.text.includes(term);
+  }
 }
 
 class Task {
@@ -85,6 +106,14 @@ class Task {
 
   complete(){
     this.completed = true;
+  }
+
+  returnString(){
+    return this.title;
+  }
+
+  searchItem(term){
+    return (this.title.includes(term) || this.text.includes(term))
   }
 }
 

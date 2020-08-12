@@ -30,9 +30,14 @@ class SearchScreen {
     console.log("Your search matches");
     console.log();
 
-    // TODO: Search the items as described in the requirements with
-    //       the value stored in term. Print all of the matching
-    //       items, complete and incomplete alike.
+    let count = 0;
+    for (let i=0; i<this.state.grabListsLength(); i++){
+      if(this.state.searchText(i, term)){
+        count++;
+        console.log(`${count}: ${this.state.grabListsHeader(i)}`);
+      }
+    }
+
 
     console.log();
   }
