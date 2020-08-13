@@ -20,7 +20,7 @@ class State {
 
   setCategory(index, input) {
     this.categories[index] = input
-}
+  }
 
   addNote(text) {
     this.lists.push(new Note(text, false));
@@ -38,7 +38,7 @@ class State {
     return this.lists[index];
   }
 
-  grabListsHeader(index){
+  grabListsHeader(index) {
     return this.lists[index].returnString();
   }
 
@@ -46,7 +46,7 @@ class State {
     return this.lists[index].type;
   }
 
-  searchText(index, term){
+  searchText(index, term) {
     return this.lists[index].searchItem(term);
   }
   // Called from program.js if there is JSON saved
@@ -54,20 +54,42 @@ class State {
   // this.filePath.
   loadFromJson(data) {
     const {
-     this.categories = categories,
-      this.
+      categories,
+      lists
+    } = JSON.parse(data)
+
+    // for (const i of categories) {
+    //   this.categories = i;
+    // }
+
+    for (let i = 0; i < categories.length; i += 1) {
+      this.categories[i] = categories[i];
     }
-    JSON.parse(data)
+
+    for (let i = 0; i < lists.length; i += 1) {
+      const listData = lists[i];
+      let list = null;
+      if (listData.type === 'Note') {
+        list = new Note(listData.text, listData.completed);
+      } else if (listData.type === 'Task') {
+        const {
+          title,
+          text,
+          categoryId,
+          completed,
+        } = listData;
+        list = new Task(title, text, categoryId, completed);
+      }
+      this.lists.push(list);
     }
   }
 
   saveInfo() {
-    const  info = {
+    const info = {
       lists: this.lists,
       categories: this.categories,
     }
-    fs.writeFile(this.filePath, JSON.stringify(info), err => {
-   });
+    fs.writeFile(this.filePath, JSON.stringify(info), err => {});
 
   }
 
@@ -75,22 +97,22 @@ class State {
 }
 
 // TODO: All of your other classes, here.
-class Note{
-  constructor(text, completed){
+class Note {
+  constructor(text, completed) {
     this.type = "Note",
-    this.text = text,
-    this.completed = completed
+      this.text = text,
+      this.completed = completed
   }
 
-  complete(){
+  complete() {
     this.completed = true;
   }
 
-  returnString(){
+  returnString() {
     return this.text;
   }
 
-  searchItem(term){
+  searchItem(term) {
     return this.text.includes(term);
   }
 }
@@ -98,21 +120,21 @@ class Note{
 class Task {
   constructor(title, text, categoryIndex, completed) {
     this.type = "Task",
-    this.title = title,
-    this.text = text,
-    this.categoryIndex = categoryIndex,
-    this.completed = completed;
+      this.title = title,
+      this.text = text,
+      this.categoryIndex = categoryIndex,
+      this.completed = completed;
   }
 
-  complete(){
+  complete() {
     this.completed = true;
   }
 
-  returnString(){
+  returnString() {
     return this.title;
   }
 
-  searchItem(term){
+  searchItem(term) {
     return (this.title.includes(term) || this.text.includes(term))
   }
 }
